@@ -10,7 +10,7 @@ import { InputFieldComponent } from './input-field/input-field.component';
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss'
 })
-
 export class AppComponent {
+  hello: string = "label coming from parent";
   title = 'prepaymentCalculator';
 }

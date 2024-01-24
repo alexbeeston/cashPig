@@ -9,6 +9,7 @@ import { Component, Input } from '@angular/core';
 })
 
 export class InputFieldComponent {
-  @Input() label: string = '';
-  @Input() helpText: string = '';
+  @Input() nameAttribute!: string;
+  @Input() label!: string;
+  @Input() helpText!: string;
 }
