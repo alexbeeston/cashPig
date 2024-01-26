@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, Output, EventEmitter } from '@angular/core';
 
 @Component({
   selector: 'app-input-field',
@@ -12,4 +12,5 @@ export class InputFieldComponent {
   @Input() nameAttribute!: string;
   @Input() label!: string;
   @Input() helpText!: string;
+  @Output() emitter: EventEmitter<string> = new EventEmitter<string>();
 }

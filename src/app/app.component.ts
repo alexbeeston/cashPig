@@ -11,6 +11,15 @@ import { InputFieldComponent } from './input-field/input-field.component';
   styleUrl: './app.component.scss'
 })
 export class AppComponent {
-  hello: string = "label coming from parent";
+  testProperty: string = "testing";
   title = 'prepaymentCalculator';
+
+  initialBalance: number = 0;
+  monthlyPayment: number = 0;
+  interestRate: number = 0;
+
+  stringToNumber(stringLiteral: string): number {
+    console.log("parsing" + stringLiteral);
+    return Number(stringLiteral);
+  }
 }

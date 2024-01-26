@@ -2,6 +2,7 @@
   [nameAttribute]='"initialBalance"'
   [label] = '"Initial Balance"'
   [helpText] = '"Initial balance on the loan"'
+  (emitter)="initialBalance = stringToNumber($event)"
 ></app-input-field>
 
 <br>
@@ -9,7 +10,8 @@
 <app-input-field
   [nameAttribute]='"monthlyPayment"'
   [label] = '"Monthly Payment"'
- [helpText] = '"Sum of principal and interest components of the monthly payment."'
+  [helpText] = '"Sum of principal and interest components of the monthly payment."'
+  (emitter)="monthlyPayment = stringToNumber($event)"
 ></app-input-field>
 
 <br>
@@ -17,5 +19,12 @@
 <app-input-field
   [nameAttribute]='"interestRate"'
   [label] = '"Interest Rate"'
- [helpText] = '"Interest Rate"'
+  [helpText] = '"Interest Rate"'
+  (emitter)="interestRate = stringToNumber($event)"
 ></app-input-field>
+
+{{ initialBalance }}
+<br>
+{{ monthlyPayment }}
+<br>
+{{ interestRate }}
