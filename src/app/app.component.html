@@ -26,4 +26,22 @@
   (emitter)="interestRate = stringToNumber($event)"
 ></app-input-field>
 
-<button (click)="logLifespan(computePaymentSchedule())">Compute</button>
+<button (click)="updateLifespans()">Compute</button>
+
+<table>
+  <tr>
+    <th></th>
+    <th>Total Interest</th>
+    <th>Time to Pay Off (months)</th>
+  </tr>
+  <tr>
+    <td>No extra principal</td>
+    <td> {{ currencyFormatter.format(loanWithoutExtraPayment.totalInterestPaid)}} <td>
+    <td> {{ formatNumMonthsAsString(loanWithoutExtraPayment.monthsToPay)}} <td>
+  </tr>
+  <tr>
+    <td>With extra principal</td>
+    <td> {{ currencyFormatter.format(loanWithExtraPrincipal.totalInterestPaid)}} <td>
+    <td> {{ formatNumMonthsAsString(loanWithExtraPrincipal.monthsToPay)}} <td>
+  </tr>
+</table>
