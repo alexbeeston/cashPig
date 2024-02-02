@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { RouterOutlet } from '@angular/router';
 import { InputFieldComponent } from './input-field/input-field.component';
 import { ExtraPincipalComponent } from './extra-pincipal/extra-pincipal.component';
+import { InputType } from './input-type';
 
 @Component({
   selector: 'app-root',
@@ -21,12 +22,22 @@ export class AppComponent {
   initialBalance: number = 0;
   monthlyPayment: number = 0;
   interestRate: number = 0;
+  startingDate!: Date;
   loanWithoutExtraPayment: LoanLifespan = new LoanLifespan();
   loanWithExtraPrincipal: LoanLifespan = new LoanLifespan();
   extraPayments: ExtraPincipalComponent[] = [];
+  InputTypes = InputType;
+
+  getCurrentDate(): string {
+    return new Date().toString();
+  }
 
   stringToNumber(stringLiteral: string): number {
     return Number(stringLiteral);
+  }
+
+  stringToDate(stringLiteral: string): Date {
+    return new Date(stringLiteral);
   }
 
   updateLifespans(): void {

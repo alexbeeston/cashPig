@@ -1,32 +1,41 @@
 <app-input-field
+  [nameAttribute]='"startDate"'
+  [label] = '"Start Date"'
+  [helpText] = '"The date the first payment on the loan is/was due."'
+  [inputType]="InputTypes.date"
+  (emitter)="startingDate = stringToDate($event)"
+></app-input-field>
+<br>
+<app-input-field
   [nameAttribute]='"initialBalance"'
   [label] = '"Initial Balance"'
   [helpText] = '"Initial balance on the loan"'
   [defaultValue]="'100000'"
+  [inputType]="InputTypes.number"
   (emitter)="initialBalance = stringToNumber($event)"
 ></app-input-field>
-
 <br>
-
 <app-input-field
   [nameAttribute]='"monthlyPayment"'
   [label] = '"Monthly Payment"'
   [helpText] = '"Sum of principal and interest components of the monthly payment."'
   [defaultValue]="'537'"
+  [inputType]="InputTypes.number"
   (emitter)="monthlyPayment = stringToNumber($event)"
 ></app-input-field>
-
 <br>
-
 <app-input-field
   [nameAttribute]='"interestRate"'
   [label] = '"Interest Rate"'
   [helpText] = '"Interest Rate"'
   [defaultValue]="'.05'"
+  [inputType]="InputTypes.number"
   (emitter)="interestRate = stringToNumber($event)"
 ></app-input-field>
 
-<app-extra-pincipal *ngFor="let extrapayment of extraPayments"></app-extra-pincipal>
+<div class="column">
+  <app-extra-pincipal *ngFor="let extrapayment of extraPayments"></app-extra-pincipal>
+</div>
 
 <button (click)="addExtraPayment()">Add Extra Payment</button>
 
