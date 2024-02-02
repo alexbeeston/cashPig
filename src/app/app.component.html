@@ -26,6 +26,10 @@
   (emitter)="interestRate = stringToNumber($event)"
 ></app-input-field>
 
+<app-extra-pincipal *ngFor="let extrapayment of extraPayments"></app-extra-pincipal>
+
+<button (click)="addExtraPayment()">Add Extra Payment</button>
+
 <button (click)="updateLifespans()">Compute</button>
 
 <table>
