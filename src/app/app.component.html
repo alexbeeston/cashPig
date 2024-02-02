@@ -2,7 +2,7 @@
   [nameAttribute]='"initialBalance"'
   [label] = '"Initial Balance"'
   [helpText] = '"Initial balance on the loan"'
-  [defaultValue]="'374200'"
+  [defaultValue]="'100000'"
   (emitter)="initialBalance = stringToNumber($event)"
 ></app-input-field>
 
@@ -12,7 +12,7 @@
   [nameAttribute]='"monthlyPayment"'
   [label] = '"Monthly Payment"'
   [helpText] = '"Sum of principal and interest components of the monthly payment."'
-  [defaultValue]="'1952.01'"
+  [defaultValue]="'537'"
   (emitter)="monthlyPayment = stringToNumber($event)"
 ></app-input-field>
 
@@ -22,7 +22,7 @@
   [nameAttribute]='"interestRate"'
   [label] = '"Interest Rate"'
   [helpText] = '"Interest Rate"'
-  [defaultValue]="'.0475'"
+  [defaultValue]="'.05'"
   (emitter)="interestRate = stringToNumber($event)"
 ></app-input-field>
 
