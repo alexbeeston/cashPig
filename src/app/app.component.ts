@@ -3,20 +3,22 @@ import { CommonModule, getLocaleFirstDayOfWeek } from '@angular/common';
 import { RouterOutlet } from '@angular/router';
 import { InputFieldComponent } from './input-field/input-field.component';
 import { ExtraPincipalComponent } from './extra-pincipal/extra-pincipal.component';
+import { LoanPaydownComponent } from './loan-paydown/loan-paydown.component';
 import { InputType } from './input-type';
 import { first } from 'rxjs';
 
 @Component({
-  selector: 'app-root',
-  standalone: true,
-  imports: [
-    CommonModule,
-    RouterOutlet,
-    InputFieldComponent,
-    ExtraPincipalComponent,
-  ],
-  templateUrl: './app.component.html',
-  styleUrl: './app.component.scss'
+    selector: 'app-root',
+    standalone: true,
+    templateUrl: './app.component.html',
+    styleUrl: './app.component.scss',
+    imports: [
+        CommonModule,
+        RouterOutlet,
+        InputFieldComponent,
+        ExtraPincipalComponent,
+        LoanPaydownComponent
+    ]
 })
 
 export class AppComponent {
@@ -48,10 +50,6 @@ export class AppComponent {
 
   computeLifespan(initialBalance: number, monthlyPayment: number, interestRate: number, extraPrincipal: ExtraPincipalComponent[]): LoanLifespan {
     const lifespan: LoanLifespan = new LoanLifespan();
-    lifespan.startDate = this.startDate;
-    lifespan.endDate = this.startDate;
-    lifespan.totalInterestPaid = 0;
-
     let currentBalance: number = initialBalance;
     while (currentBalance > 0) {
       // Make regular monthly payment first
@@ -61,18 +59,18 @@ export class AppComponent {
       currentBalance -= principalComponent;
 
       // apply any principal-only payments
-      if (currentBalance > 0) {
-        const currentRegularPaymentDate = lifespan.endDate;
-        let nextRegularPaymentDate = new Date(currentRegularPaymentDate)
-        nextRegularPaymentDate.setMonth(nextRegularPaymentDate.getMonth() + 1);
+      // if (currentBalance > 0) {
+      //   const currentRegularPaymentDate = 
+      //   let nextRegularPaymentDate = new Date(currentRegularPaymentDate)
+      //   nextRegularPaymentDate.setMonth(nextRegularPaymentDate.getMonth() + 1);
 
-        extraPrincipal.filter(x => currentRegularPaymentDate < x.paymentDate && x.paymentDate <= nextRegularPaymentDate).forEach(x => {
-          console.log('found payment ' + x.paymentDate + ' for ' + x.amount);
-          currentBalance -= Math.min(currentBalance, x.amount);
-        });
+      //   extraPrincipal.filter(x => currentRegularPaymentDate < x.paymentDate && x.paymentDate <= nextRegularPaymentDate).forEach(x => {
+      //     console.log('found payment ' + x.paymentDate + ' for ' + x.amount);
+      //     currentBalance -= Math.min(currentBalance, x.amount);
+      //   });
 
-        lifespan.endDate = nextRegularPaymentDate;
-      }
+      //   lifespan.endDate = nextRegularPaymentDate;
+      // }
     }
 
     return lifespan;
@@ -95,13 +93,6 @@ export class AppComponent {
 }
 
 class LoanLifespan {
-  startDate!: Date;
-  endDate!: Date;
-  totalInterestPaid!: number;
-
-  getMonthsToPay(): number {
-    var diff = (this.endDate.getTime() - this.startDate.getTime()) / 1000;
-    diff /= (60 * 60 * 24 * 7 * 4);
-    return Math.abs(Math.round(diff));
-  }
+  numMonths: number = 0;
+  totalInterestPaid: number = 0;
 }

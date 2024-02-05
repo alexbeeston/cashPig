@@ -42,20 +42,4 @@
 
 <button (click)="updateLifespans()">Compute</button>
 
-<table>
-  <tr>
-    <th></th>
-    <th>Total Interest</th>
-    <th>Time to Pay Off (months)</th>
-  </tr>
-  <tr>
-    <td>No extra principal</td>
-    <td> {{ currencyFormatter.format(loanWithoutExtraPayment.totalInterestPaid)}} <td>
-    <td> {{ formatNumMonthsAsString(loanWithoutExtraPayment.getMonthsToPay())}} <td>
-  </tr>
-  <tr>
-    <td>With extra principal</td>
-    <td> {{ currencyFormatter.format(loanWithExtraPrincipal.totalInterestPaid)}} <td>
-    <td> {{ formatNumMonthsAsString(loanWithExtraPrincipal.getMonthsToPay())}} <td>
-  </tr>
-</table>
+<app-loan-paydown></app-loan-paydown>
