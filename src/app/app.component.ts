@@ -22,6 +22,10 @@ import { first } from 'rxjs';
 })
 
 export class AppComponent {
+  constructor() {
+    this.thing = new LoanPaydownComponent();
+  }
+
   initialBalance: number = 0;
   monthlyPayment: number = 0;
   interestRate: number = 0;
@@ -49,14 +53,16 @@ export class AppComponent {
   }
 
   computeLifespan(initialBalance: number, monthlyPayment: number, interestRate: number, extraPrincipal: ExtraPincipalComponent[]): LoanLifespan {
-    const lifespan: LoanLifespan = new LoanLifespan();
-    let currentBalance: number = initialBalance;
-    while (currentBalance > 0) {
-      // Make regular monthly payment first
-      const interestComponent: number = currentBalance * interestRate / 12;
-      const principalComponent: number = Math.min(monthlyPayment - interestComponent, currentBalance);
-      lifespan.totalInterestPaid += interestComponent;
-      currentBalance -= principalComponent;
+    console.log("going to change it");
+    this.thing.firstName.set("dogs");
+    // const lifespan: LoanLifespan = new LoanLifespan();
+    // let currentBalance: number = initialBalance;
+    // while (currentBalance > 0) {
+    //   // Make regular monthly payment first
+    //   const interestComponent: number = currentBalance * interestRate / 12;
+    //   const principalComponent: number = Math.min(monthlyPayment - interestComponent, currentBalance);
+    //   lifespan.totalInterestPaid += interestComponent;
+    //   currentBalance -= principalComponent;
 
       // apply any principal-only payments
       // if (currentBalance > 0) {
@@ -71,9 +77,9 @@ export class AppComponent {
 
       //   lifespan.endDate = nextRegularPaymentDate;
       // }
-    }
+    // }
 
-    return lifespan;
+    return new LoanLifespan();
   }
 
   currencyFormatter: Intl.NumberFormat = new Intl.NumberFormat('en-US', {
@@ -90,6 +96,8 @@ export class AppComponent {
   addExtraPayment(): void {
     this.extraPayments.push(new ExtraPincipalComponent());
   }
+
+  thing: LoanPaydownComponent;
 }
 
 class LoanLifespan {

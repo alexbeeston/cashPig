@@ -1,5 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, computed, Input, Signal, signal, WritableSignal } from '@angular/core';
 import { ExtraPincipalComponent } from '../extra-pincipal/extra-pincipal.component';
+import { first } from 'rxjs';
 
 @Component({
   selector: 'app-loan-paydown',
@@ -10,12 +11,11 @@ import { ExtraPincipalComponent } from '../extra-pincipal/extra-pincipal.compone
 })
 
 export class LoanPaydownComponent {
-  initialBalance!: number;
-  firstPaymentDueDate!: Date;
-  interestRate!: number;
-  monthlyPayment!: number;
-  extraPrincipalPayments!: ExtraPincipalComponent[];
+  firstName: WritableSignal<string> = signal("Fred");
+  lastName: WritableSignal<string> = signal("Flintstone");
 
-  firstName!: string;
-  lastName!: string;
+  fullName: Signal<string> = computed(() => {
+    console.log("Evaluating");
+    return this.firstName() + this.lastName()
+  });
 }
