@@ -1,6 +1,7 @@
 import { Component, computed, Input, Signal, signal, WritableSignal } from '@angular/core';
 import { ExtraPincipalComponent } from '../extra-pincipal/extra-pincipal.component';
 import { first } from 'rxjs';
+import { CurrencyPipe } from '@angular/common';
 
 @Component({
   selector: 'app-loan-paydown',
@@ -11,11 +12,24 @@ import { first } from 'rxjs';
 })
 
 export class LoanPaydownComponent {
-  firstName: WritableSignal<string> = signal("Fred");
-  lastName: WritableSignal<string> = signal("Flintstone");
+  constructor(startDate: Date, balance: number, monthlyPayment: number, interestRate: number, extraPrincipal: ExtraPincipalComponent[]) {
+    this.totalInterestPaid = 0;
+    this.endDate = new Date(startDate);
+    while (balance > 0) {
+      const interestComponent: number = balance * interestRate / 12;
+      const principalComponent: number = Math.min(monthlyPayment - interestComponent, balance);
+      this.totalInterestPaid += interestComponent;
+      balance -= principalComponent;
+      this.endDate.setMonth(this.endDate.getMonth() + 1);
+    }
 
-  fullName: Signal<string> = computed(() => {
-    console.log("Evaluating");
-    return this.firstName() + this.lastName()
-  });
+    this.formatedInterestPaid = new Intl.NumberFormat('en-US', {
+      style: 'currency',
+      currency: 'USD',
+    }).format(this.totalInterestPaid);
+  }
+  
+  totalInterestPaid: number;
+  endDate: Date;
+  formatedInterestPaid: string;
 }
