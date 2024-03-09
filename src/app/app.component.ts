@@ -29,6 +29,7 @@ export class AppComponent {
   InputTypes = InputType;
 
   computePaydown(startDate: Date, initialBalance: number, monthlyPayment: number, interestRate: number, extraPrincipal: ExtraPincipalComponent[]): LoanPaydown {
+    const appliedPayments: AppliedPayment[] = extraPrincipal.map(x => new AppliedPayment(x));
     const paydown: LoanPaydown = new LoanPaydown();
     paydown.endDate = new Date(startDate);
     paydown.totalInterestPaid = 0;
@@ -38,6 +39,10 @@ export class AppComponent {
       const principalComponent: number = Math.min(monthlyPayment - interestComponent, balance);
       paydown.totalInterestPaid += interestComponent;
       balance -= principalComponent;
+      appliedPayments.filter(x => x.paymentDate < paydown.endDate && !x.paymentApplied).forEach(x => {
+        balance -= Math.min(balance, x.amount);
+        x.paymentApplied = true;
+      });
       paydown.endDate.setMonth(paydown.endDate.getMonth() + 1);
     }
 
@@ -69,4 +74,16 @@ export class AppComponent {
 class LoanPaydown {
   totalInterestPaid!: number;
   endDate!: Date;
+}
+
+class AppliedPayment extends ExtraPincipalComponent
+{
+  constructor(extraPrincipalComponent: ExtraPincipalComponent){
+    super();
+    this.paymentDate = extraPrincipalComponent.paymentDate;
+    this.amount = extraPrincipalComponent.amount;
+    this.paymentApplied = false;
+  }
+
+  paymentApplied: boolean = false;
 }
