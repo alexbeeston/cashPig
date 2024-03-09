@@ -1,38 +1,18 @@
-<app-input-field
-  [nameAttribute]='"startDate"'
-  [label] = '"Start Date"'
-  [helpText] = '"The date the first payment on the loan is/was due."'
-  [inputType]="InputTypes.date"
-  [defaultValue]="'2024-01-01'"
-  (emitter)="startDate = stringToDate($event);"
-></app-input-field>
+<app-input-field [nameAttribute]='"startDate"' [label]='"Start Date"'
+  [helpText]='"The date the first payment on the loan is/was due."' [inputType]="InputTypes.date"
+  [defaultValue]="'2024-01-01'" (emitter)="startDate = stringToDate($event);"></app-input-field>
 <br>
-<app-input-field
-  [nameAttribute]='"initialBalance"'
-  [label] = '"Initial Balance"'
-  [helpText] = '"Initial balance on the loan"'
-  [defaultValue]="'100000'"
-  [inputType]="InputTypes.number"
-  (emitter)="initialBalance = stringToNumber($event)"
-></app-input-field>
+<app-input-field [nameAttribute]='"initialBalance"' [label]='"Initial Balance"'
+  [helpText]='"Initial balance on the loan"' [defaultValue]="'100000'" [inputType]="InputTypes.number"
+  (emitter)="initialBalance = stringToNumber($event)"></app-input-field>
 <br>
-<app-input-field
-  [nameAttribute]='"monthlyPayment"'
-  [label] = '"Monthly Payment"'
-  [helpText] = '"Sum of principal and interest components of the monthly payment."'
-  [defaultValue]="'537'"
-  [inputType]="InputTypes.number"
-  (emitter)="monthlyPayment = stringToNumber($event)"
-></app-input-field>
+<app-input-field [nameAttribute]='"monthlyPayment"' [label]='"Monthly Payment"'
+  [helpText]='"Sum of principal and interest components of the monthly payment."' [defaultValue]="'537'"
+  [inputType]="InputTypes.number" (emitter)="monthlyPayment = stringToNumber($event)"></app-input-field>
 <br>
-<app-input-field
-  [nameAttribute]='"interestRate"'
-  [label] = '"Interest Rate"'
-  [helpText] = '"Interest Rate"'
-  [defaultValue]="'.05'"
-  [inputType]="InputTypes.number"
-  (emitter)="interestRate = stringToNumber($event)"
-></app-input-field>
+<app-input-field [nameAttribute]='"interestRate"' [label]='"Interest Rate"' [helpText]='"Interest Rate"'
+  [defaultValue]="'.05'" [inputType]="InputTypes.number"
+  (emitter)="interestRate = stringToNumber($event)"></app-input-field>
 
 <div class="column">
   <app-extra-pincipal *ngFor="let extrapayment of extraPayments"></app-extra-pincipal>
@@ -40,6 +20,22 @@
 
 <button (click)="addExtraPayment()">Add Extra Payment</button>
 
-<button (click)="updateLifespans()">Compute</button>
+<button (click)="updatePaydowns()">Compute</button>
 
-<app-loan-paydown  ></app-loan-paydown>
+<table>
+  <tr>
+    <th></th>
+    <th>Ending Date</th>
+    <th>Total Interest</th>
+  </tr>
+  <tr>
+    <td>No Extra Principal</td>
+    <td> {{ this.loanPaydownWithoutExtra?.endDate?.toLocaleDateString('en-us', { year: 'numeric', month: 'long', day: 'numeric' }) ?? "" }} </td>
+    <td> {{ this.loanPaydownWithoutExtra?.totalInterestPaid | currency }} </td>
+  </tr>
+  <tr>
+    <td>Extra Principal</td>
+    <td> {{ this.loanPaydownWithExtra?.endDate?.toLocaleDateString('en-us', { year: 'numeric', month: 'long', day: 'numeric' }) ?? "" }} </td>
+    <td> {{ this.loanPaydownWithExtra?.totalInterestPaid | currency }} </td>
+  </tr>
+</table>
