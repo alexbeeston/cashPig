@@ -1,17 +1,17 @@
 <app-input-field [nameAttribute]='"startDate"' [label]='"Start Date"'
   [helpText]='"The date the first payment on the loan is/was due."' [inputType]="InputTypes.date"
-  [defaultValue]="'2024-01-01'" (emitter)="startDate = stringToDate($event);"></app-input-field>
+  [defaultValue]="'2022-06-01'" (emitter)="startDate = stringToDate($event);"></app-input-field>
 <br>
 <app-input-field [nameAttribute]='"initialBalance"' [label]='"Initial Balance"'
-  [helpText]='"Initial balance on the loan"' [defaultValue]="'100000'" [inputType]="InputTypes.number"
+  [helpText]='"Initial balance on the loan"' [defaultValue]="'374200'" [inputType]="InputTypes.number"
   (emitter)="initialBalance = stringToNumber($event)"></app-input-field>
 <br>
 <app-input-field [nameAttribute]='"monthlyPayment"' [label]='"Monthly Payment"'
-  [helpText]='"Sum of principal and interest components of the monthly payment."' [defaultValue]="'537'"
+  [helpText]='"Sum of principal and interest components of the monthly payment."' [defaultValue]="'1952.01'"
   [inputType]="InputTypes.number" (emitter)="monthlyPayment = stringToNumber($event)"></app-input-field>
 <br>
 <app-input-field [nameAttribute]='"interestRate"' [label]='"Interest Rate"' [helpText]='"Interest Rate"'
-  [defaultValue]="'.05'" [inputType]="InputTypes.number"
+  [defaultValue]="'.0475'" [inputType]="InputTypes.number"
   (emitter)="interestRate = stringToNumber($event)"></app-input-field>
 
 <div class="column">

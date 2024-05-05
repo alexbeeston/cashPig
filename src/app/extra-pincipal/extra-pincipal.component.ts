@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Inject } from '@angular/core';
 
 @Component({
   selector: 'app-extra-pincipal',
@@ -9,6 +9,11 @@ import { Component } from '@angular/core';
 })
 
 export class ExtraPincipalComponent {
+  constructor(@Inject(String) a: number, @Inject(String)d: Date) {
+    this.amount = a;
+    this.paymentDate = d;
+  }
+
   paymentDate!: Date;
   amount!: number;
 }
